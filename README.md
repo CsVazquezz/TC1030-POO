@@ -9,6 +9,7 @@ El programa funciona permitiendo a los usuarios registrar su consumo diario de a
 El programa solo corre en la consola y esta hecho con c++11 por lo que es importante compilarlo de esta manera:
 
 Windows: g++ -std=c++11 TC1030.cpp TiposComidas2.cpp Usuario2.cpp -o program
+
 MacOS: g++ -std=c++11 TC1030.cpp TiposComidas2.cpp Usuario2.cpp -o program
 
 De esta manera se generara un programa ejecutable.
