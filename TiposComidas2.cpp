@@ -39,3 +39,5 @@ void LegumbreYOrigenAnimal::mostrarInformacion() { //sobrescritura
     Comida::mostrarInformacion();
     std::cout << "Tipo de legumbre o de origen animal: " << tipo << "  \n";
 }
+
+

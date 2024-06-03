@@ -4,23 +4,47 @@
 Usuario::Usuario(std::string nombre, int edad, double peso, double altura)
     : nombre(nombre), edad(edad), peso(peso), altura(altura) {} //constructor
 
-void Usuario::agregarComida( ComidaDiaria& comidaDiaria) {
-    diario.push_back(comidaDiaria);  //agrega comidaDiaria a diario con metodo push_back
+void Usuario::agregarComida(std::unique_ptr<ComidaDiaria> comidaDiaria) {
+    diario.push_back(std::move(comidaDiaria)); //agrega comidaDiaria a diario con metodo push_back
 }
+
+
 
 void Usuario::mostrarResumenDiario() { //muestra la informacion de la comida diaria del usuario
     std::cout << "Resumen diario de: " << nombre << "\n";
     for (auto& comidaDiaria : diario) {
-        comidaDiaria.mostrarInformacion(); 
+        comidaDiaria->mostrarInformacion();
     }
 }
+
+void Usuario::MostrarCaloriasMacros() { // muestra las calorias totales y macros al ususario
+    double totalCalorias = 0;
+    double totalProteinas = 0;
+    double totalGrasas = 0;
+    double totalCarbohidratos = 0;
+
+    for (auto& comidaDiaria : diario) { //recorre las comidas diarias y suma sus calorias y macros
+        totalCalorias += comidaDiaria->calcularCaloriasTotales();
+        auto macros = comidaDiaria->calcularMacrosTotales();
+        totalProteinas += macros["Proteinas"];
+        totalGrasas += macros["Grasas"];
+        totalCarbohidratos += macros["Carbohidratos"];
+    }
+
+    std::cout << "Calorías Totales: " << totalCalorias << "\n";  //imprime en pantalla las calorias y macronutrientes
+    std::cout << "Proteínas Totales: " << totalProteinas << " g\n";
+    std::cout << "Grasas Totales: " << totalGrasas << " g\n";
+    std::cout << "Carbohidratos Totales: " << totalCarbohidratos << " g\n";
+}
+
+
 
 std::string Usuario::getNombre() { return nombre; } //getter
 
 ComidaDiaria::ComidaDiaria(std::string fecha) : fecha(fecha) {} //constructor
 
-void ComidaDiaria::agregarComida(Comida* comida) { //agrega comida a lista de comidas con metodo push_back
-    listaComidas.push_back(comida);
+void ComidaDiaria::agregarComida(std::unique_ptr<Comida> comida) {
+    listaComidas.push_back(std::move(comida)); //agrega comida a lista de comidas con metodo push_back
 }
 
 double ComidaDiaria::calcularCaloriasTotales() { //este metodo recorre el vector ListaComidas con el ciclo for y suma la calorias de los objetos
@@ -54,8 +78,3 @@ void ComidaDiaria::mostrarInformacion() {
     }
 }
 
-ComidaDiaria::~ComidaDiaria() {
-    for (auto& comida : listaComidas) {
-        delete comida; //este es para liberar memoria
-    }
-}

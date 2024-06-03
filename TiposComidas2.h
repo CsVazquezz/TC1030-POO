@@ -33,7 +33,7 @@ private:
 public:
     VegetalYFruta(std::string nombre, double calorias, double proteinas, double grasas, double carbohidratos, std::string tipo); //inicializamos el objeto con un constrcutor
 
-    void mostrarInformacion(); //definicion
+    void mostrarInformacion() override; //definicion
 };
 
 class Cereales : public Comida {
@@ -44,7 +44,7 @@ private:
 public:
     Cereales(std::string nombre, double calorias, double proteinas, double grasas, double carbohidratos, double fibra); //inicializamos el objeto con un constructor
 
-    void mostrarInformacion(); //definicion
+    void mostrarInformacion() override; //definicion
 };
 
 class LegumbreYOrigenAnimal : public Comida {
@@ -55,7 +55,7 @@ private:
 public:
     LegumbreYOrigenAnimal(std::string nombre, double calorias, double proteinas, double grasas, double carbohidratos, std::string tipo); //inicializamos el objeto con un constructor
 
-    void mostrarInformacion(); //definicionm
+    void mostrarInformacion() override; //definicionm
 };
 
 #endif // TIPOSCOMIDAS2_H
