@@ -1,8 +1,6 @@
 #include "Usuario2.h"
-#include"TiposComidas2.h"
+#include "TiposComidas2.h"
 #include <iostream>
-#include <memory>
-//incluimos los otros archivos 
 
 void Menu() { //funcion que despliega el menu
 
@@ -10,12 +8,20 @@ void Menu() { //funcion que despliega el menu
     std::cout << "1. Agregar Comida \n";
     std::cout << "2. Mostrar Lista Comidas \n";
     std::cout << "3. Mostrar Calorias y Macros totales\n";
-    std::cout << "4. Salir\n\n";
+    std::cout << "4. Mostrar informacion del usuario\n";
+    std::cout << "5. Salir\n\n";
     std::cout << "Seleccione una opción: ";
 }
 
+void MenuMostrarInfoUsuario() {
+
+    std::cout << "1. Mostrar solo nombre \n";
+    std::cout << "2. Mostrar mas informacion \n";
+
+}
+
 int main() {
-    Usuario usuario("Juan", 30, 75.5, 175.0); //creacion de un objeto de Usuario
+    Usuario usuario("DongJu Mun", 30, 120.0, 150.0); //creacion de un objeto de Usuario
 
     bool continuar = true;
     while (continuar) {
@@ -37,7 +43,7 @@ int main() {
             double calorias, proteinas, grasas, carbohidratos;
             std::cout << "Ingrese el nombre de la comida: ";
             std::cin.ignore();
-            std::getline(std::cin, nombre);
+            getline(std::cin, nombre);
             std::cout << "Ingrese las calorias: ";
             std::cin >> calorias;
             std::cout << "Ingrese las proteinas: ";
@@ -47,31 +53,32 @@ int main() {
             std::cout << "Ingrese los carbohidratos: ";
             std::cin >> carbohidratos;
 
-            std::unique_ptr<Comida> nuevaComida = nullptr; //indica que nueva comida es un puntero a un objeto de comida
+            Comida* nuevaComida = nullptr; //indica que nueva comida es un puntero a un objeto de comida
             if (tipo1 == 1) {
                 std::string tipo;
                 std::cout << "Ingrese el tipo (Vegetal/Fruta): "; //si es vegetal y fruta agrega el tipo
                 std::cin >> tipo;
-                nuevaComida = std::make_unique <VegetalYFruta>(nombre, calorias, proteinas, grasas, carbohidratos, tipo);
+                nuevaComida = new VegetalYFruta(nombre, calorias, proteinas, grasas, carbohidratos, tipo);
             } else if (tipo1 == 2) {
                 double fibra;
                 std::cout << "Ingrese la cantidad de fibra: "; //si es cereal agrega la cantidad de fibra
                 std::cin >> fibra;
-                nuevaComida = std::make_unique <Cereales>(nombre, calorias, proteinas, grasas, carbohidratos, fibra);
+                nuevaComida = new Cereales(nombre, calorias, proteinas, grasas, carbohidratos, fibra);
             } else if (tipo1 == 3) {
                 std::string tipo;
-                std::cout << "Ingrese el tipo (Legumbre/Origen Animal): ";//si es legumbre o de origen animal agrega el tipo
-                std::cin >> tipo;
-                nuevaComida = std::make_unique <LegumbreYOrigenAnimal>(nombre, calorias, proteinas, grasas, carbohidratos, tipo);
+                std::cout << "Ingrese el tipo (Legumbre/OrigenA): ";//si es legumbre o de origen animal agrega el tipo
+                std::cin.ignore();
+                getline(std::cin, tipo);
+                nuevaComida = new LegumbreYOrigenAnimal(nombre, calorias, proteinas, grasas, carbohidratos, tipo);
             }
 
-            if ( nuevaComida) {
+            if (nuevaComida) {
                 std::string fecha;
                 std::cout << "Ingrese la fecha (YYYY-MM-DD): ";
                 std::cin >> fecha;
-                 auto comidaDiaria = std::make_unique<ComidaDiaria>(fecha);
-                comidaDiaria->agregarComida(std::move(nuevaComida));
-                usuario.agregarComida(std::move(comidaDiaria));
+                ComidaDiaria* comidaDiaria = new ComidaDiaria(fecha);
+                comidaDiaria->agregarComida(nuevaComida);
+                usuario.agregarComida(comidaDiaria);
                 std::cout << "Comida agregada exitosamente.\n";
             } else {
                 std::cout << "Opción no válida.\n";
@@ -83,10 +90,41 @@ int main() {
             usuario.mostrarResumenDiario(); //muestra la lista de comidas agregadas
             break;
         case 3:
+            std::cout << "Consumo diario de: " << usuario.getNombre() << "\n";
             std::cout << "\n";
             usuario.MostrarCaloriasMacros(); //muestra la suma de las calorias y macros de las comidas
             break;
         case 4:
+            int inf;
+            MenuMostrarInfoUsuario();
+            std::cout << "Seleccione una opcion: ";
+            std::cin >> inf;
+            if (inf == 1) {
+                usuario.mostrarInformacion();
+            } 
+            else {
+
+                std::string mostrarEdadInput, mostrarPesoInput, mostrarAlturaInput;
+                bool mostrarEdad, mostrarPeso, mostrarAltura;
+
+                std::cout << "Mostrar edad? (true/false): ";
+                std::cin >> mostrarEdadInput;
+                mostrarEdad = (mostrarEdadInput == "true");
+
+                std::cout << "Mostrar peso? (true/false): ";
+                std::cin >> mostrarPesoInput;
+                mostrarPeso = (mostrarPesoInput == "true");
+
+                std::cout << "Mostrar Altura? (true/false): ";
+                std::cin >> mostrarAlturaInput;
+                mostrarAltura = (mostrarAlturaInput == "true");
+
+                usuario.mostrarInformacion(mostrarEdad, mostrarPeso, mostrarAltura);
+            }
+
+         
+            break;
+        case 5:
             continuar = false;
             break; 
         default:

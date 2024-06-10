@@ -17,7 +17,7 @@ public:
     Comida(std::string nombre, double calorias, double proteinas, double grasas, double carbohidratos);
     virtual ~Comida() = default; //destructor
 
-    virtual void mostrarInformacion(); //es virtual ya que asi cada subclase puede implementar de manera diferente este metodo 
+    virtual void mostrarInformacion() = 0; //es virtual ya que asi cada subclase puede implementar de manera diferente este metodo 
 
     double getCalorias(); //getters
     double getProteinas();
