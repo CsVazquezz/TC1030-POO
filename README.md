@@ -13,3 +13,13 @@ Windows: g++ -std=c++14 TC1030.cpp TiposComidas2.cpp Usuario2.cpp -o program
 MacOS: g++ -std=c++14 TC1030.cpp TiposComidas2.cpp Usuario2.cpp -o program
 
 De esta manera se generara un programa ejecutable.
+
+# Casos en el que dejaria de funcionar
+
+1. Memoria insuficiente: si el sistema se queda sin memoria mientras que se ejecuta el programa debido a la creación de demasiados objetos dinámicos el programa puede fallar.
+
+2. Acceso invalido a memoria: Si hay errores con la gestión de la memoria dinámica, como intentar acceder a punteros nulos o liberar memoria que ya se libero podria causar errores de segmentación.
+
+3. Conflictos de versión: Si el proyecto no se ejecuta en una version de c++11 o posteriores el programa puede fallar al generar el ejecutable.
+
+4. Error en entrada de datos: Si el usuario ingresa datos incorrectos o en un formato incorrecto durante el programa, este puede producir resultados inesperados o errores.
