@@ -16,11 +16,11 @@ Este corre en consola
 
 # Consideraciones
 
-El programa solo corre en la consola y esta ocupa opciones de c++14 por lo que es importante compilarlo de esta manera:
+El programa solo corre en la consola y esta ocupa funciones de c++11 por lo que es importante compilarlo de esta manera para que no genere ningun warning:
 
-Windows: g++ -std=c++14 TC1030.cpp TiposComidas2.cpp Usuario2.cpp -o program
+Windows: g++ -std=c++11 TC1030.cpp TiposComidas2.cpp Usuario2.cpp -o program
 
-MacOS: g++ -std=c++14 TC1030.cpp TiposComidas2.cpp Usuario2.cpp -o program
+MacOS: g++ -std=c++11 TC1030.cpp TiposComidas2.cpp Usuario2.cpp -o program
 
 De esta manera se generara un programa ejecutable.
 
