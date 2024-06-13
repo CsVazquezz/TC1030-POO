@@ -13,7 +13,7 @@ void Menu() { //funcion que despliega el menu
     std::cout << "Seleccione una opción: ";
 }
 
-void MenuMostrarInfoUsuario() {
+void MenuMostrarInfoUsuario() { //funcion que despliega el menu al ingresar a la opcion 4 de menu()
 
     std::cout << "1. Mostrar solo nombre \n";
     std::cout << "2. Mostrar mas informacion \n";
@@ -25,7 +25,7 @@ int main() {
 
     bool continuar = true;
     while (continuar) {
-        Menu();
+        Menu(); //imprime Menu()
         int opcion;
         std::cin >> opcion; //despliega el menu y recibe opcion
 
@@ -65,11 +65,10 @@ int main() {
                 std::cin >> fibra;
                 nuevaComida = new Cereales(nombre, calorias, proteinas, grasas, carbohidratos, fibra);
             } else if (tipo1 == 3) {
-                std::string tipo;
-                std::cout << "Ingrese el tipo (Legumbre/OrigenA): ";//si es legumbre o de origen animal agrega el tipo
-                std::cin.ignore();
-                getline(std::cin, tipo);
-                nuevaComida = new LegumbreYOrigenAnimal(nombre, calorias, proteinas, grasas, carbohidratos, tipo);
+                int vitaminas;
+                std::cout << "Ingrese la cantidad de vitaminaD: ";//si es legumbre o de origen animal agrega el tipo de vitaminas
+                std::cin >> vitaminas;
+                nuevaComida = new LegumbreYOrigenAnimal(nombre, calorias, proteinas, grasas, carbohidratos, vitaminas);
             }
 
             if (nuevaComida) {
